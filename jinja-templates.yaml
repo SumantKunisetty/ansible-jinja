@@ -11,6 +11,7 @@
       dest: /tmp/h1.txt
     
    - name: copy template
+     notify: Print the message
      ansible.builtin.template:
       src: sample.txt.j2
       dest: /tmp/h2.txt 
@@ -19,3 +20,8 @@
      ansible.builtin.template:
       src: student.txt.j2
       dest: /tmp/h3.txt
+    
+  handlers: 
+   - name: print the message
+     ansible.builtin.debug:
+      msg: file has been modified

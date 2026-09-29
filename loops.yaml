@@ -1,0 +1,12 @@
+- name: install git, curl, nginx
+  hosts: localhost
+  connection: local
+  tasks:
+   - name: installation
+     ansible.builtin.dnf:
+      name: {{ item }}
+      state: present
+     loop:
+      - git
+      - curl
+      - nginx

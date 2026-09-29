@@ -1,2 +1,2 @@
-Hello {{ user }},
+Hello John,
     welcome

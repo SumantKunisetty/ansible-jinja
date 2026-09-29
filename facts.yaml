@@ -5,3 +5,8 @@
    - name: print a message
      ansible.builtin.debug:
       msg: "{{ ansible_facts }}"
+
+   - name: config file update
+     ansible.builtin.copy:
+      content: "IP -- {{ansible_facts["all_ipv4_addresses"] }} "
+      dest: /tmp/IP

@@ -1,6 +1,9 @@
 - name: sample jinja template
   hosts: localhost
   connection: local
+  vars:
+    students: { name: steve, course: devops}
+    user: Usha
   tasks:
    - name: Copy file
      ansible.builtin.copy:
@@ -11,3 +14,8 @@
      ansible.builtin.template:
       src: sample.txt.j2
       dest: /tmp/h2.txt 
+
+   - name: copy template with dictionary 
+     ansible.builtin.template:
+      src: student.txt.j2
+      dest: /tmp/h3.txt

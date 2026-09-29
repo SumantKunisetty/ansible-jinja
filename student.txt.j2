@@ -1,2 +1,7 @@
 Hello {{ students.name }} ,
      welcome to {{ students.course }} 
+{% if students.course == "devops" %}
+    fee = 100$
+{% else %}
+    fee = 50$
+{% endif %}

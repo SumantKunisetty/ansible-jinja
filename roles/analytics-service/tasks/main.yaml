@@ -1,0 +1,23 @@
+- name: install python
+  ansible.builtin.dnf:
+   name:
+     - python3.12
+     - python3.12-pip
+     - python3.12-devel
+     - gcc
+   state: present
+
+- name: installing the prereq using role file
+  ansible.builtin.include_role:
+   name: common
+   tasks_from: prereq
+
+- name: Install the python packages
+  ansible.builtin.shell: pip3.12 install --no-cache-dir .
+  args:
+   chdir: /app
+
+- name: enabling and starting systemd service
+  ansible.builtin.include_role:
+   name: common
+   tasks_from: systemd_status

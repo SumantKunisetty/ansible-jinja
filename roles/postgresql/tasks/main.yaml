@@ -1,0 +1,49 @@
+- name: Install postgres repo
+  ansible.builtin.dnf:
+    name: https://download.postgresql.org/pub/repos/yum/reporpms/EL-9-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+    state: present
+    disable_gpg_check: true
+
+- name: disable postgres default module
+  ansible.builtin.shell: dnf -qy module disable postgresql
+
+- name: install postgres
+  ansible.builtin.dnf:
+    name: 
+    - postgresql16
+    - postgresql16-server
+
+- name: Initialize postgres
+  ansible.builtin.shell: /usr/pgsql-16/bin/postgresql-16-setup initdb
+  ignore_errors: true
+
+- name: start postgresql
+  ansible.builtin.systemd_service:
+    name: postgresql-16
+    state: started
+    enabled: yes
+
+- name: update listen address
+  ansible.builtin.replace:
+    path: /var/lib/pgsql/16/data/postgresql.conf
+    regexp:  "#listen_addresses = 'localhost'"
+    replace: "listen_addresses = '*' "
+
+- name: copy pg_hba file
+  ansible.builtin.copy:
+    src: pg_hba.conf
+    dest: /var/lib/pgsql/16/data/pg_hba.conf
+
+- name: restart postgres
+  ansible.builtin.systemd_service:
+    name: postgresql-16
+    state: restarted
+    enabled: yes
+
+- name: Copy Schema file
+  ansible.builtin.copy:
+    src: setup.sql
+    dest: /tmp/setup.sql
+
+- name: load Schema
+  ansible.builtin.shell: sudo -u postgres /usr/pgsql-16/bin/psql < /tmp/setup.sql

@@ -1,0 +1,5 @@
+- name: main file
+  hosts: all
+  become: yes
+  roles:
+    - "{{ COMPONENT }}"

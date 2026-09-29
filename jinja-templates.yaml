@@ -1,0 +1,13 @@
+- name: sample jinja template
+  hosts: localhost
+  connection: local
+  tasks:
+   - name: Copy file
+     ansible.builtin.copy:
+      src: sample.txt
+      dest: /tmp/h1.txt
+    
+   - name: copy template
+     ansible.builtin.template:
+      src: sample.txt.j2
+      dest: /tmp/h2.txt 

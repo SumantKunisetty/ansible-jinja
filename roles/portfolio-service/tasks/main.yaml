@@ -1,0 +1,27 @@
+- name: Install java21
+  ansible.builtin.dnf:
+   name: java-21-openjdk-devel
+   state: present
+
+- name: performing prerequisites
+  ansible.builtin.include_role:
+   name: common
+   tasks_from: prereq
+
+- name: change the permission of gradle
+  ansible.builtin.file:
+   path: /app/gradle
+   mode: 777
+
+- name: build the application using gradle
+  ansible.builtin.shell: ./gradlew bootJar --no-daemon -x test
+  args:
+   chdir: /app
+
+- name: copy the jar file
+  ansible.builtin.shell: cp /app/build/libs/*.jar /app/portfolio-service.jar
+
+- name: starting systemd systemd_service
+  ansible.builtin.include_role:
+   name: common
+   tasks_from: systemd_status

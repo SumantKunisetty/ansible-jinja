@@ -13,7 +13,7 @@
    - name: create users
      ansible.builtin.user:
       name: "{{ item.name }}" 
-      group: "{{ item.uid }}"
+      group: "{{ item.name }}"
      loop:
       - { name: Sumant ,uid: 2001 }
       - { name: Usha ,uid: 2002 }

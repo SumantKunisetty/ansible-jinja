@@ -10,3 +10,11 @@
      ansible.builtin.copy:
       content: "IP -- {{ ansible_facts['all_ipv4_addresses'] }} "
       dest: /tmp/IP
+
+   - name: register a variables
+     ansible.builtin.command: df -h
+     register: disk_output
+
+   - name: show the variables
+     ansible.builtin.debug:
+      msg: " the variable is {{ disk_output }}" 

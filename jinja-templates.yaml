@@ -22,6 +22,6 @@
       dest: /tmp/h3.txt
     
   handlers: 
-   - name: print the message
+   - name: Print the message
      ansible.builtin.debug:
       msg: file has been modified

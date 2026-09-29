@@ -10,3 +10,10 @@
       - git
       - curl
       - nginx
+   - name: create users
+     ansible.builtin.user:
+      name: "{{ item.name }}" 
+      group: "{{ item.uid }}"
+     loop:
+      - { name: Sumant ,uid: 100 }
+      - { name: Usha ,uid: 200 }

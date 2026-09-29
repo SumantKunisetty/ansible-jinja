@@ -11,12 +11,12 @@
       dest: /tmp/h1.txt
     
    - name: copy template
-     notify: Print the message
      ansible.builtin.template:
       src: sample.txt.j2
       dest: /tmp/h2.txt 
 
-   - name: copy template with dictionary 
+   - name: copy template with dictionary
+     notify: Print the message
      ansible.builtin.template:
       src: student.txt.j2
       dest: /tmp/h3.txt
